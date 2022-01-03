@@ -9,7 +9,7 @@ body{
     justify-content: center;
     background-image: url('bgr.jpg');
     background-repeat: no-repeat;
-    height: 100vh;
+    min-height: 100vh;
     background-size:cover
 }
 .calcContainer{
@@ -19,7 +19,7 @@ body{
     display: flex;
     margin: auto;
     justify-content: center;
-    height:700px;
+    height:46rem;
     width: 600px;
     border-radius: 10px;
 }
@@ -27,7 +27,7 @@ body{
     padding:70px 30px 30px 30px;
 }
 .result{
-    height: 80px;
+    height:6rem;
     background-color: white;
     font-size: 50px;
     padding: 15px;
@@ -64,3 +64,17 @@ body{
     cursor:pointer;
     filter: brightness(90%);
 }
+@media screen and (max-width: 700px){
+    .calcContainer{
+        background-color: none;
+        backdrop-filter: none;
+        -webkit-backdrop-filter: none;}
+    .calculator{padding: 2vw; margin: 2vw;}
+    .calcContainer{height: 60vw; width:40vw; }
+    .result{height: 12vw;font-size: 6vw;}
+    .btn{height:10vw;width:10vw;font-size: 6vw}
+    .clear{font-size: 5vw; width:10vw}
+        
+};
+  
+    
