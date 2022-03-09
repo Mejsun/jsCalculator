@@ -26,22 +26,38 @@ keys.addEventListener('click', (e)=>{
             }else{    
                 display.textContent = displayedNum + keyContent}
             calculator.dataset.previousKeyType = 'number'
-        }
+        }   
+        
+        if (action === 'subtract'){
+            if(calculator.dataset.previousKeyType === 'operator'){
+                const firstValue = -Math.abs(calculator.dataset.firstValue);
+                const operator = calculator.dataset.previousKey
+                display.textContent = keyContent
+                const secondValue = displayedNum;
+                if (firstValue && operator && secondValue){
+                    const resValue = calculate(firstValue, operator, secondValue)
+                    display.textContent = resValue
+                }
+                calculator.dataset.previousKeyType = 'negative'
 
-        /*
-        if (){
-            display.textContent = keyContent
-            const firstValue = calculator.dataset.firstValue
-            const secondValue =  display.textContent;
-            //if(firstValue && operator && secondValue && calculator.dataset.previousKeyType === 'calculate'){
-                const resValue = calculate(firstValue, operator, -Math.abs(secondValue))
-                display.textContent = resValue
-                calculator.dataset.previousKeyType = 'negative'}
-                */
-        
-            
+            }else{
+                const firstValue = calculator.dataset.firstValue
+                let operator = calculator.dataset.operator
+                const secondValue = displayedNum
+                    if (firstValue && operator && calculator.dataset.previousKeyType !== 'operator' && calculator.dataset.previousKeyType !== 'calculate'){
+                        const resValue = calculate(firstValue, operator, secondValue)
+                        display.textContent = resValue
+                        calculator.dataset.firstValue = resValue
+                    }
+                    else {
+                        calculator.dataset.firstValue = displayedNum
+                    }
+                calculator.dataset.previousKeyType = 'operator'
+                calculator.dataset.operator = action
+            }    
+        }
+                
         if ((action === 'add' || action === 'multiply') || action==='divide'){
-        
             const firstValue = calculator.dataset.firstValue
             let operator = calculator.dataset.operator
             const secondValue = displayedNum
@@ -49,41 +65,18 @@ keys.addEventListener('click', (e)=>{
                 const resValue = calculate(firstValue, operator, secondValue)
                 display.textContent = resValue
                 calculator.dataset.firstValue = resValue
-            }else {
+            } else if (calculator.dataset.previousKeyType === 'negative'){
+                let operator = calculator.dataset.operator;
+                const resValue = calculate(firstValue, operator, secondValue)
+                display.textContent = resValue
+            }
+            else {
                 calculator.dataset.firstValue = displayedNum
             }
             calculator.dataset.previousKeyType = 'operator'
             calculator.dataset.operator = action
         }
-        
-        if (action === 'subtract'){
-            if(calculator.dataset.previousKeyType === 'operator'){
-                const firstValue = calculator.dataset.firstValue;
-                const operator = calculator.dataset.previousKey
-                display.textContent = keyContent
-                const secondValue = displayedNum;
-                const resValue = calculate(firstValue, operator, secondValue)
-                display.textContent = resValue
-                console.log(resValue)
-                
 
-            }else{
-                const firstValue = calculator.dataset.firstValue
-                let operator = calculator.dataset.operator
-                const secondValue = displayedNum
-                if (firstValue && operator && calculator.dataset.previousKeyType !== 'calculate'){
-                    const resValue = calculate(firstValue, operator, secondValue)
-                    display.textContent = resValue
-                    calculator.dataset.firstValue = resValue
-                }else {
-                    calculator.dataset.firstValue = displayedNum
-                }
-                calculator.dataset.previousKeyType = 'operator'
-                calculator.dataset.operator = action
-            }
-            
-        }
-                
         if (action === 'calculate'){ 
             let firstValue = calculator.dataset.firstValue
             const operator = calculator.dataset.operator
